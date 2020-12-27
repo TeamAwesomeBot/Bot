@@ -39,6 +39,8 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
+__pycache__
+.replit
 htmlcov/
 .tox/
 .nox/
