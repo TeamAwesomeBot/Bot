@@ -22,11 +22,7 @@ async def on_ready():
   bot.add_cog(CogManager(bot, config))
 
   status =f'{bot.command_prefix}help'
-  activity = discord.Activity(
-		type=discord.ActivityType.streaming, url='https://www.twitch.tv/AwesomeBot', 
-		name=status
-		)
-  await bot.change_presence(activity=activity)
+  await bot.change_presence(activity=discord.Game(name=bot_config['activity']))
   print("Started successfully!")
 
 
