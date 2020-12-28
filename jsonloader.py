@@ -4,14 +4,14 @@ import discord
 from configmanager import config
 
 filenames = ['data.json', 'config.json']
-data = {}
+data = [{}, {}]
 
 def readfile():
 	global filenames, data
 	
-	for filename in filenames:
+	for i, filename in enumerate(filenames):
 		with open(str(filename), "r") as read_file:
-			return json.load(read_file)
+			data[i] = json.load(read_file)
 
 def getfilecontent():
     global data
@@ -31,13 +31,12 @@ def checkuser(member:discord.Member=None, ctx=None):
 def savefile():
 	global filenames, data
 
-	for filename in filenames:
+	for i, filename in enumerate(filenames):
 		with open(str(filename), "w") as write_file:
-			json.dump(data, write_file)
+			json.dump(data[i], write_file)
 
 atexit.register(savefile)
-data = readfile()
-print(data)
+readfile()
 
 class TargetError(Exception):
     def __init__(self, msg='The given member can\'t be null!'):
