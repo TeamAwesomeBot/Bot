@@ -29,7 +29,7 @@ py main.py
 This should start your bot.
 
 If you want to know what commands do what:
-[Click here](https://gamingnetwork.at/bots/awesomebot/docs/ "AwesomeBot Docs")
+[Click here](https://readthedocs.io/bots/awesomebot/docs/ "AwesomeBot Docs")
 
 This bot was created using tons of librarys other people wrote.
 We really appreciate your help!
