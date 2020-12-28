@@ -1,13 +1,18 @@
 from configparser import SafeConfigParser
+import inspect
 import atexit
 
 config = SafeConfigParser()
 config.read('config.ini')
 
 def getconfig():
-    global config
-    print('Requested config...')
-    return config
+	global config
+	frame = inspect.stack()[1]
+	module = inspect.getmodule(frame[0])
+	
+	print(f"{module.__name__} Requested config.")
+	
+	return config
 
 def saveconfig():
     global config

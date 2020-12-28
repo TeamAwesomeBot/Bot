@@ -16,14 +16,14 @@ class Moderation(commands.Cog):
 		self.json = getfilecontent()
 		self.color = self.rawconfig.get("BOT", "color")
 
-	@commands.command(aliases=["warnmember"], brief="", help="<member> <reason>")
+	@commands.command(aliases=["warnmember"], brief="Warns a member.", help="<member> <reason>")
 	async def warn(self, ctx, target: discord.Member, *, reason=""):
 		if await has_admin(ctx.message.author, ctx):
 			jsondata = {'date' : int(config['ECONOMY']['startbalance']), 'warns' : 0}
 			self.json[str(ctx.guild.id)]["warns"][str(target.id)]["date"]
 			print(lst)
 	
-	@commands.command(brief="", help="<member> <reason>")
+	@commands.command(brief="Kicks a member.", help="<member> <reason>")
 	async def kick(self, ctx, member: discord.Member, *, reason):
 		if await has_admin(ctx.message.author, ctx):
 			embed = discord.Embed(
@@ -45,7 +45,7 @@ class Moderation(commands.Cog):
 			await ctx.send(embed=embed)
 			
 	
-	@commands.command(brief="", help="<member> <reason>")
+	@commands.command(brief="Bans a member.", help="<member> <reason>")
 	async def ban(self, ctx, member: discord.Member, *, reason):
 		if await has_admin(ctx.message.author, ctx):
 			embed = discord.Embed(
@@ -66,7 +66,7 @@ class Moderation(commands.Cog):
 			await member.ban(reason=reason)
 			await ctx.send(embed=embed)
 	
-	@commands.command(aliases=["clear"], brief="Deletes the provided amount of messages", help="<amount>")
+	@commands.command(aliases=["clear"], brief="Deletes the provided amount of messages.", help="<amount>")
 	async def wipe(self, ctx, amount: int):
 		if amount < 1001:
 			embed = discord.Embed(

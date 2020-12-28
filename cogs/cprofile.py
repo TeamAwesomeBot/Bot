@@ -13,7 +13,7 @@ class CProfile(commands.Cog):
 	@commands.Cog.listener()
 	async def on_guild_join(self, guild):
 		print(f"Hello {guild.name}")
-		jsondata = {"prefix" : "!", "color" : "0x17c4b9", "welcome_messages" : [],"leave_messages" : [], "warns" : []}
+		jsondata = {"prefix" : "!", "color" : "0x17c4b9", "use_wm" : False, "use_lm" : False, "welcome_messages" : [],"leave_messages" : [], "warns" : []}
 
 		self.data[1][str(guild.id)] = jsondata
 
