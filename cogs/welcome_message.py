@@ -40,7 +40,7 @@ class WelcomeMessage(commands.Cog):
 
 			await channel.send(embed=embed) '''
 
-	@commands.command(brief="Change the welcome-messages.\nNOTE: If you want to activate them use the settings command", help="")
+	@commands.command(aliases=["wm"], brief="Change the welcome-messages.\nNOTE: If you want to activate them use the settings command", help="")
 	async def welcomemessage(self, ctx):
 		if await has_admin(ctx.message.author, ctx):
 			
@@ -68,7 +68,7 @@ class WelcomeMessage(commands.Cog):
 					msg = await ctx.send(embed=embedbuilder.get_embed())
 
 					def check(m):
-						return m.channel == ctx.message.channel and m.author == ctx.message.author and ctx.message.contains("|")
+						return m.channel == ctx.message.channel and m.author == ctx.message.author and "|" in m.content
 
 					try:
 						msg = await self.bot.wait_for('message', check=check)
