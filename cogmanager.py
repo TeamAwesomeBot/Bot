@@ -9,7 +9,7 @@ class CogManager(commands.Cog):
     def __init__(self, bot, config):
         self.bot = bot
         self.config = config
-        self.cogs = [Moderation, Administration]
+        self.cogs = [Moderation, Administration, Api]
         self.load_systems()
 
     def load_systems(self):
