@@ -32,8 +32,7 @@ If you want to know what commands do what:
 [Click here](https://gamingnetwork.at/bots/awesomebot/docs/ "AwesomeBot Docs")
 <hr>
 This bot was created using tons of librarys other people wrote.
-* discord.py
-* os
-* sys
-* python
-* ...And so on
+We really appreciate your help!
+<hr>
+##### If you find any bugs please tell us in the github issues tab.
+##### You want to have a new feature added? Let us know in the Github issues tab!
