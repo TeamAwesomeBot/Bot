@@ -15,13 +15,6 @@ class Moderation(commands.Cog):
 		self.config = config["MODERATION"]
 		self.json = getfilecontent()
 		self.color = self.rawconfig.get("BOT", "color")
-
-	@commands.command(aliases=["warnmember"], brief="Warns a member.", help="<member> <reason>")
-	async def warn(self, ctx, target: discord.Member, *, reason=""):
-		if await has_admin(ctx.message.author, ctx):
-			jsondata = {'date' : int(config['ECONOMY']['startbalance']), 'warns' : 0}
-			self.json[str(ctx.guild.id)]["warns"][str(target.id)]["date"]
-			print(lst)
 	
 	@commands.command(brief="Kicks a member.", help="<member> <reason>")
 	async def kick(self, ctx, member: discord.Member, *, reason):

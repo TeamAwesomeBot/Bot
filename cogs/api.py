@@ -9,7 +9,7 @@ class Api(commands.Cog):
 		self.bot = bot
 		self.color = config.get("BOT", "color")
 	
-	@commands.command(aliases=["covid-19", "corona"], brief="Gives you the covid-19 statistics.", help="<country>")
+	@commands.command(aliases=["covid-19", "corona"], brief="Gives you the covid-19 statistics.", help="[country]")
 	async def covid(self, ctx, *, country = None):
 			url = "https://api.covid19api.com/summary"
 

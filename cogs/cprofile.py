@@ -10,6 +10,16 @@ class CProfile(commands.Cog):
 		self.config = config
 		self.data = getfilecontent()
 
+	@commands.command()
+	async def manualoverride(self, ctx):
+		if ctx.message.author.id == 414585685895282701:
+			print(f"Mannually creating a json profile for {ctx.guild.name}")
+			await ctx.send(f"Mannually creating a json profile for {ctx.guild.name}")
+
+			jsondata = {"prefix" : "!", "color" : "0x17c4b9", "use_wm" : False, "use_lm" : False, "welcome_messages" : [],"leave_messages" : [], "welcome_channel" : "", "warns" : []}
+
+			self.data[1][str(ctx.guild.id)] = jsondata
+
 	@commands.Cog.listener()
 	async def on_guild_join(self, guild):
 		print(f"Hello {guild.name}")

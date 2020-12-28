@@ -1,4 +1,6 @@
 import discord
+import asyncio
+import random
 from discord.ext import commands
 
 from hasperm import has_admin
@@ -15,19 +17,19 @@ class WelcomeMessage(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_member_join(self, member):
-		if self.data[member.guild.id]["use_wm"]:
-			channel = discord.utils.get_channel(int(self.data[member.guild.id]["welcome_channel"]))
+		if self.data[1][str(member.guild.id)]["use_wm"]:
+			channel = member.guild.get_channel(int(self.data[1][str(member.guild.id)]["welcome_channel"]))
+
+			choice = random.choice(self.data[1][str(member.guild.id)]["welcome_messages"])
+			choice.replace("{user}", member.mention)
+			_str = choice.split("|", 1)
 
 			embedbuilder = EmbedBuilder()
-			embedbuilder.create_embed(member.guild, "Title", "description")
+			embedbuilder.create_embed(guild=member.guild,title=_str[0], description=_str[1])
 			
-			choice = random.choice(self.data[member.guild.id]["welcome_messages"])
-			
-			embed = discord.Embed(title="Welcome!", description=choice, timestamp=datetime.datetime.utcnow(), color=eval(self.data[member.guild.id]["color"]))
+			await channel.send(embed=embedbuilder.get_embed())
 
-			await channel.send(embed=embed)
-
-	@commands.Cog.listener()
+	''' @commands.Cog.listener()
 	async def on_member_remove(self, member):
 		if self.data[member.guild.id]["use_lm"]:
 			channel = discord.utils.get_channel(int(self.data[member.guild.id]["leave_messages"]))
@@ -36,69 +38,76 @@ class WelcomeMessage(commands.Cog):
 			
 			embed = discord.Embed(title="Bye!", description=choice, timestamp=datetime.datetime.utcnow(), color=eval(self.data[member.guild.id]["color"]))
 
-			await channel.send(embed=embed)
+			await channel.send(embed=embed) '''
 
 	@commands.command(brief="Change the welcome-messages.\nNOTE: If you want to activate them use the settings command", help="")
 	async def welcomemessage(self, ctx):
-		if has_admin(ctx.message.author, ctx):
-			embedbuilder.create_embed(ctx.guild, "", "description")
+		if await has_admin(ctx.message.author, ctx):
+			
+			emojis = ["✅", get_emoji_by_name(ctx.guild, "crossmark")]
 
-			emojis = [get_emoji_by_name(ctx.guild, "crossmark"), "✅"]
-			msg = await ctx.send(embed=embed)
+			embedbuilder = EmbedBuilder()
+			embedbuilder.create_embed(ctx.guild, title="Change welcome-messages", description=f"Please react with {emojis[1]} in order to add a welcome message or with {emojis[0]} in order to remove a welcome message.")
 
-			for emoji in emojis:
-				await msg.add_reaction(emoji)
+			msg = await ctx.send(embed=embedbuilder.get_embed())
 
-				def check(reaction, user):
-						return user == ctx.message.author and str(reaction.emoji) in emojis
-				try:
-						reaction, user = await self.bot.wait_for('reaction_add', timeout=20.0, check=check)
-				except asyncio.TimeoutError:
-						await ctx.send("Taking too long there buddy.")
-				else:
-					if reaction.emoji == emojis[0]:
-						embed = discord.Embed(
-							description="Please write the new welcome message you want to add.\n The format will be either <message> <member> or <member> <message> write \"message\" after your welcome message if you want the message to before the name of the member, and vice versa.",
-							color=eval(self.color)
-							)
-					elif reaction.emoji == emojis[1]:
-						embedbuilder.create_embed()
-						def check(reaction, user):
-							return user == ctx.message.author and message.endswith("message") or message.endswith("member")
-
-						try:
-								reaction, user = await self.bot.wait_for('message', timeout=20.0, check=check)
-						except:
-							pass
-						else:
-							pass
-
-			messages = self.data[member.guild.id]["welcome_messages"]
-			messages = dict(enumerate(results, start=1))
-
-			msg = await ctx.send(embed=embed)
-
-			emojis = [
-					"1️⃣", "2️⃣", "3️⃣",
-					"4️⃣", "5️⃣", "6️⃣",
-					"7️⃣", "8️⃣", "9️⃣"
-					]
-
-			for emoji in emojis:
-					await msg.add_reaction(emoji)
-
-			demojis = {
-					"1️⃣":1, "2️⃣":2, "3️⃣":3,
-					"4️⃣":4, "5️⃣":5, "6️⃣":6,
-					"7️⃣":7, "8️⃣":8, "9️⃣":9
-					}
+			for i, emoji in enumerate(emojis):
+				await msg.add_reaction(emojis[i])
 
 			def check(reaction, user):
 					return user == ctx.message.author and str(reaction.emoji) in emojis
 
 			try:
-					reaction, user = await self.bot.wait_for('reaction_add', timeout=20.0, check=check)
+					reaction, user = await self.bot.wait_for("reaction_add", timeout=20.0, check=check)
 			except asyncio.TimeoutError:
 					await ctx.send("Taking too long there buddy.")
 			else:
-				pass
+				if reaction.emoji == emojis[0]:
+					embedbuilder.create_embed(ctx.guild, title="Add a welcome message", description="Example: `Welcome|Hello {user}!` in this case the bot will say `Welcome` as the embed title and `Hello (name of user that joined)` as the embed description.")
+
+					msg = await ctx.send(embed=embedbuilder.get_embed())
+
+					def check(m):
+						return m.channel == ctx.message.channel and m.author == ctx.message.author and ctx.message.contains("|")
+
+					try:
+						msg = await self.bot.wait_for('message', check=check)
+					except asyncio.TimeoutError:
+						await ctx.send("Taking too long there buddy.")
+					else:
+						self.data[1][str(ctx.guild.id)]["welcome_messages"].append(msg.content)
+						await ctx.send("Added a new welcome message!")
+						
+				if reaction.emoji == emojis[1]:
+					embed = embedbuilder.create_embed(ctx.guild, title="Delete a welcome message", description="Please react with one of the numbers to delete a welcome message.")
+					
+					msg = await ctx.send(embed=embedbuilder.get_embed())
+
+					emojis = [
+						"1️⃣", "2️⃣", "3️⃣",
+						"4️⃣", "5️⃣", "6️⃣",
+						"7️⃣", "8️⃣", "9️⃣"
+						]
+
+					for i, emoji in enumerate(emojis):
+						await msg.add_reaction(emojis[i])
+
+					def check(reaction, user):
+						return user == ctx.message.author and str(reaction.emoji) in emojis
+
+					try:
+							reaction, user = await self.bot.wait_for("reaction_add", timeout=20.0, check=check)
+					except asyncio.TimeoutError:
+							await ctx.send("Taking too long there buddy.")
+					else:
+						messages = self.data[member.guild.id]["welcome_messages"]
+						messages = dict(enumerate(results, start=1))
+
+						demojis = {
+							"1️⃣":1, "2️⃣":2, "3️⃣":3,
+							"4️⃣":4, "5️⃣":5, "6️⃣":6,
+							"7️⃣":7, "8️⃣":8, "9️⃣":9
+							}
+							
+
+				

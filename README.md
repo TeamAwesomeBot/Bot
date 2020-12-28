@@ -3,9 +3,11 @@ Awesome bot
 ##### Made by ContiousAtom and JustM3Dev
 
 ## Idea
-We made this bot just because we wanted to know if it would work making a bot together with someone else. First we wanted the bot to be themed(like for a game) but then we realized we could just make a bit of everything!
+We made this bot just because we wanted to know if it would work making a bot together with someone else. First we wanted the bot to be themed(like for a game) but then we realized we could just make a bit of everything.
 
 ## Installation
+#### Note: The robot is constantly changing.
+
 ```bash
 git clone [repolink]
 cd awesomebot

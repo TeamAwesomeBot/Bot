@@ -15,7 +15,8 @@ intents = discord.Intents(messages=True, guilds=True, members=True, reactions=Tr
 
 bot = commands.Bot(
 	command_prefix=bot_config['prefix'], description=bot_config['description'], help_command=None,
-	intents=intents
+	intents=intents,
+	case_insensitive=True
 	)
 
 @bot.event 
@@ -34,7 +35,7 @@ async def help(ctx, arg=None):
 	prefix = data[1][str(ctx.guild.id)]["prefix"]
 	embedBuilder = EmbedBuilder()
 	if not arg:
-		embedBuilder.create_embed(ctx.guild, title=":gear: Help",description=bot.description)
+		embedBuilder.create_embed(ctx.guild, title=":gear: Help",description="NOTE: `<...>` is a required argument and `[...]` is a optional argument.")
 
 		for command in bot.commands:
 			if not command.brief: command.brief = "This command has no description"
