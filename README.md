@@ -19,11 +19,12 @@ token = [token]
 username = 
 description = 
 activity = a game
+color = discord.color.Green
 
 [MODERATION]
 ```
 Then open your shell and type:
-```py
+```bash
 py main.py
 ```
 This should start your bot.
