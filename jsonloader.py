@@ -3,14 +3,15 @@ import atexit
 import discord
 from configmanager import config
 
-filename = 'data.json'
+filenames = ['data.json', 'config.json']
 data = {}
 
 def readfile():
-    global filename, data
-    
-    with open(filename, "r") as read_file:
-        return json.load(read_file)
+	global filenames, data
+	
+	for filename in filenames:
+		with open(str(filename), "r") as read_file:
+			return json.load(read_file)
 
 def getfilecontent():
     global data
@@ -28,10 +29,11 @@ def checkuser(member:discord.Member=None, ctx=None):
         raise TargetError()
 
 def savefile():
-    global filename, data
+	global filenames, data
 
-    with open(filename, "w") as write_file:
-        json.dump(data, write_file)
+	for filename in filenames:
+		with open(str(filename), "w") as write_file:
+			json.dump(data, write_file)
 
 atexit.register(savefile)
 data = readfile()

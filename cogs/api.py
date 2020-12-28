@@ -1,18 +1,18 @@
 import discord
 import requests
+import json
 from discord.ext import commands
 
 class Api():
 	def __init__(self, bot, config):
-        self.bot = bot
+		self.bot = bot	
 	
 	@commands.command(aliases=["covid-19", "corona"], brief="", help="<country>")
-	async def covid(self, ctx, *, country: typing.Optional[str] = None):
+	async def covid(self, ctx, *, country = None):
 			url = "https://api.covid19api.com/summary"
 
 			response = requests.get(url)
 			response = response.json()
-
 
 			if country is None:
 					embed = discord.Embed(

@@ -30,7 +30,7 @@ async def on_ready():
 async def help(ctx, arg = ''):
   if not arg:
       embed = discord.Embed(title=f':gear: Help', description=bot.description,
-                        timestamp=datetime.datetime.utcnow(), color=discord.Color.green())
+                        timestamp=datetime.utcnow(), color=discord.Color.green())
       for command in bot.commands:
           embed.add_field(name=command, value=command.brief)
           embed.set_footer(text=f'Use \'{bot_config["prefix"]}\'help <command> for more information about a command.',
@@ -40,7 +40,7 @@ async def help(ctx, arg = ''):
       for command in bot.commands:
           if str(command) == arg:
               embed = discord.Embed(title=f':gear: Help \'{command}\'', description=command.brief,
-                        timestamp=datetime.datetime.utcnow(), color=discord.Color.green())
+                        timestamp=datetime.utcnow(), color=discord.Color.green())
               if command.help == None:
                   command.help = ''
               embed.add_field(name='Usage', value=f'{bot_config["prefix"]}{arg} {command.help}')

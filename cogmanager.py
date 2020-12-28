@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 
 from cogs.moderation import *
+from cogs.administration import *
+from cogs.api import *
 
 class CogManager(commands.Cog):
     def __init__(self, bot, config):
