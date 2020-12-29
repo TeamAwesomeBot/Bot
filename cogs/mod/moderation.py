@@ -6,6 +6,7 @@ from discord.ext import commands
 
 from jsonloader import *
 from hasperm import *
+from cogs.embedbuilder import *
 
 
 class Moderation(commands.Cog):
@@ -19,8 +20,11 @@ class Moderation(commands.Cog):
 	@commands.command(brief="Kicks a member.", help="<member> <reason>")
 	async def kick(self, ctx, member: discord.Member, *, reason):
 		if await has_admin(ctx.message.author, ctx):
+			eb = EmbedBuilder()
+
+			eb.default_embed(guild=ctx.guild, description=f"{member.name} has been kicked for {reason}", )
 			embed = discord.Embed(
-				description=f"{member.name} has been kicked for {reason}",
+				description=,
 				color=eval(self.color), 
 				timestamp=ctx.message.created_at
 				)

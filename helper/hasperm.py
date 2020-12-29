@@ -20,3 +20,4 @@ async def is_legit(member: discord.Member, ctx):
 		else:
 			await ctx.send(':x: Insufficient permissions.')
 			return False
+

@@ -3,14 +3,14 @@ from discord.ext import commands
 
 from cogs.moderation import *
 from cogs.administration import *
-from cogs.api import *
+from cogs.api.covid import *
 from cogs.cprofile import *
 from cogs.welcome_message import *
 from cogs.settings import *
 from cogs.warn import *
 from cogs.dm_worker import *
 from cogs.info import *
-from cogs.reddit import *
+from cogs.api.redditapi import *
 
 
 class CogManager(commands.Cog):
@@ -20,14 +20,14 @@ class CogManager(commands.Cog):
 		self.cogs = [
 			Moderation, 
 			Administration, 
-			Api, 
+			CovidAPI, 
 			CProfile, 
 			WelcomeMessage, 
 			Settings, 
 			Warn , 
 			DMWorker,
 			Info,
-			Reddit
+			RedditAPI
 			]
 		self.load_systems()
 

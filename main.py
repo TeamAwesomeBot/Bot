@@ -4,8 +4,8 @@ import datetime
 import praw
 from cogs.embedbuilder import *
 
-from cogmanager import *
-from configmanager import *
+from helper.cogmanager import *
+from helper.configmanager import *
 from webserver.app import *
 from jsonloader import *
 

@@ -26,6 +26,8 @@ class WelcomeMessage(commands.Cog):
 
 			embedbuilder = EmbedBuilder()
 			embedbuilder.create_embed(guild=member.guild,title=_str[0], description=_str[1])
+			eb = EmbedBuilder()
+			eb.default_embed(guild=ctx.guild, author=ctx.message.author, title="", description="")
 			
 			await channel.send(embed=embedbuilder.get_embed())
 

@@ -1,7 +1,7 @@
-import discord
+ import discord
 from discord.ext import commands
 
-from jsonloader import *
+from helper.jsonloader import *
 
 
 class CProfile(commands.Cog):
@@ -12,7 +12,7 @@ class CProfile(commands.Cog):
 
 	@commands.command()
 	async def manualoverride(self, ctx):
-		if ctx.message.author.id == 414585685895282701:
+		if [414585685895282701, 514403029898887201] in ctx.message.author.id:
 			print(f"Mannually creating a json profile for {ctx.guild.name}")
 			await ctx.send(f"Mannually creating a json profile for {ctx.guild.name}")
 
