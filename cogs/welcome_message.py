@@ -21,7 +21,7 @@ class WelcomeMessage(commands.Cog):
 			channel = member.guild.get_channel(int(self.data[1][str(member.guild.id)]["welcome_channel"]))
 
 			choice = random.choice(self.data[1][str(member.guild.id)]["welcome_messages"])
-			choice.replace("{user}", member.mention)
+			choice.format(user = member.mention)
 			_str = choice.split("|", 1)
 
 			embedbuilder = EmbedBuilder()
@@ -47,7 +47,7 @@ class WelcomeMessage(commands.Cog):
 			emojis = ["✅", get_emoji_by_name(ctx.guild, "crossmark")]
 
 			embedbuilder = EmbedBuilder()
-			embedbuilder.create_embed(ctx.guild, title="Change welcome-messages", description=f"Please react with {emojis[1]} in order to add a welcome message or with {emojis[0]} in order to remove a welcome message.")
+			embedbuilder.create_embed(ctx.guild, title="Change welcome-messages", description=f"Please react with {emojis[1]} in order to add a welcome message, or with {emojis[0]} in order to remove a welcome message.")
 
 			msg = await ctx.send(embed=embedbuilder.get_embed())
 
@@ -60,26 +60,36 @@ class WelcomeMessage(commands.Cog):
 			try:
 					reaction, user = await self.bot.wait_for("reaction_add", timeout=20.0, check=check)
 			except asyncio.TimeoutError:
-					await ctx.send("Taking too long there buddy.")
+					pass
 			else:
 				if reaction.emoji == emojis[0]:
-					embedbuilder.create_embed(ctx.guild, title="Add a welcome message", description="Example: `Welcome|Hello {user}!` in this case the bot will say `Welcome` as the embed title and `Hello (name of user that joined)` as the embed description.")
+					embedbuilder.create_embed(
+						ctx.guild, 
+						title="Add a welcome message", 
+						description="Example: `Welcome|Hello {user}!` in this case the bot will say"
+						"`Welcome` as the embed title and `Hello (name of user that joined)` as the embed description."
+						)
 
 					msg = await ctx.send(embed=embedbuilder.get_embed())
 
 					def check(m):
-						return m.channel == ctx.message.channel and m.author == ctx.message.author and "|" in m.content
+						return m.channel == ctx.message.channel and m.author == ctx.message.author and "|", "{user}" in m.content
 
 					try:
-						msg = await self.bot.wait_for('message', check=check)
+						msg = await self.bot.wait_for("message", check=check)
 					except asyncio.TimeoutError:
-						await ctx.send("Taking too long there buddy.")
+						pass
 					else:
 						self.data[1][str(ctx.guild.id)]["welcome_messages"].append(msg.content)
 						await ctx.send("Added a new welcome message!")
 						
 				if reaction.emoji == emojis[1]:
-					embed = embedbuilder.create_embed(ctx.guild, title="Delete a welcome message", description="Please react with one of the numbers to delete a welcome message.")
+					print("hello world")
+					embed = embedbuilder.create_embed(
+						ctx.guild, 
+						title="Delete a welcome message", 
+						description="Please react with one of the numbers to delete a welcome message."
+						)
 					
 					msg = await ctx.send(embed=embedbuilder.get_embed())
 
@@ -98,7 +108,7 @@ class WelcomeMessage(commands.Cog):
 					try:
 							reaction, user = await self.bot.wait_for("reaction_add", timeout=20.0, check=check)
 					except asyncio.TimeoutError:
-							await ctx.send("Taking too long there buddy.")
+							pass
 					else:
 						messages = self.data[member.guild.id]["welcome_messages"]
 						messages = dict(enumerate(results, start=1))

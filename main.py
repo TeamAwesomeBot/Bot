@@ -1,6 +1,7 @@
 #!/usr/bin/python -u
 import discord
 import datetime
+import praw
 from cogs.embedbuilder import *
 
 from cogmanager import *
@@ -9,9 +10,15 @@ from webserver.app import *
 from jsonloader import *
 
 config = getconfig()
-bot_config = config['BOT']
+bot_config = config["BOT"]
 
-intents = discord.Intents(messages=True, guilds=True, members=True, reactions=True, dm_messages=True)
+intents = discord.Intents(
+	messages=True, 
+	guilds=True, 
+	members=True, 
+	reactions=True, 
+	dm_messages=True
+	)
 
 bot = commands.Bot(
 	command_prefix=bot_config['prefix'], description=bot_config['description'], help_command=None,
@@ -40,7 +47,7 @@ async def help(ctx, arg=None):
 		for command in bot.commands:
 			if not command.brief: command.brief = "This command has no description"
 			if not command.help: command.help = ""
-
+			print(command)
 			embedBuilder.add_field(name=f"{prefix}{command} {command.help}", value=command.brief)
 		
 		await ctx.send(embed=embedBuilder.get_embed())
@@ -66,8 +73,8 @@ async def help(ctx, arg=None):
 				await ctx.send(embed=embedBuilder.get_embed())
 		
 try:
-  print('Starting systems...')
-  bot.run(bot_config['token'])
-  print('Done!')
+	print('Starting systems...')
+	bot.run(bot_config['token'])
+	print('Done!')
 except Exception as e:
-  print(f'end: {e}')
+	print(f'end: {e}')

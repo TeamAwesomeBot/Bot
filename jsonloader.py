@@ -14,19 +14,19 @@ def readfile():
 			data[i] = json.load(read_file)
 
 def getfilecontent():
-    global data
-    return data
+	global data
+	return data
 
 def checkuser(member:discord.Member=None, ctx=None):
-    global data
+	global data
 
-    if not member == None or not ctx == None:
-        if not str(member.id) in data:
-            jsondata = {'balance' : int(config['ECONOMY']['startbalance']), 'warns' : 0}
-            data[ctx.guild.id][str(member.id)] = jsondata
-            print(f'User {member.name} was registered successfully.')
-    else:
-        raise TargetError()
+	if not member == None or not ctx == None:
+		if not str(member.id) in data:
+			jsondata = {'balance' : int(config['ECONOMY']['startbalance']), 'warns' : 0}
+			data[ctx.guild.id][str(member.id)] = jsondata
+			print(f'User {member.name} was registered successfully.')
+	else:
+		raise TargetError()
 
 def savefile():
 	global filenames, data
@@ -39,9 +39,9 @@ atexit.register(savefile)
 readfile()
 
 class TargetError(Exception):
-    def __init__(self, msg='The given member can\'t be null!'):
-        super().__init__(msg)
+	def __init__(self, msg='The given member can\'t be null!'):
+		super().__init__(msg)
 
 class MatchingMember(Exception):
-    def __init__(self, msg='The given member already exist!'):
-        super().__init__(msg)
+	def __init__(self, msg='The given member already exist!'):
+		super().__init__(msg)

@@ -1,6 +1,8 @@
 import discord
 import hasperm
 import datetime
+from discord.ext import commands
+from cogs.embedbuilder import *
 from jsonloader import *
 
 class Warn(commands.Cog):
@@ -23,17 +25,22 @@ class Warn(commands.Cog):
 	@warn.command()
 	async def add(self, ctx, target : discord.Member, *, reason):
 		if await has_admin(ctx.message.author, ctx):
-			jsondata = {"date" : datetime.datetime.utcnow(),"reason" :  , "moderator" : str(ctx.message.author.id)}
+			jsondata = {"date" : datetime.datetime.utcnow(), "reason" : reason, "moderator" : str(ctx.message.author.id)}
 
-			self.data[str(ctx.guild.id)]["warns"][str(target.id)].append(jsondata)
+			self.data[0][str(ctx.guild.id)]["warns"][str(target.id)].append(jsondata)
 
 	@warn.command()
 	async def remove(self, ctx, index):
 		if await has_admin(ctx.message.author, ctx):
-				self.data[str(ctx.guild.id)]["warns"].pop(index)
+				self.data[0][str(ctx.guild.id)]["warns"][str(target.id)].pop(index)
 
 	@warn.command()
 	async def list(self, ctx, target):
 		if await has_admin(ctx.message.author, ctx):
 			out = self.data[str(ctx.guild.id)]["warns"][str(target.id)]
-			
+			eb = EmbedBuilder()
+			eb.default_embed(guild=ctx.guild, author=ctx.message.author,title=f"Warnings for user {target.name}", description=" ")
+
+			#for warning in self.data[0][str(ctx.guild.id)]["warns"][str(target.id)]
+
+			eb.add_field(name="", value="")
