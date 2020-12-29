@@ -1,6 +1,8 @@
 import discord
 
-def get_emoji_by_name(guild:discord.Guild=None, emoji_name:str=None):
+dev_ids = [414585685895282701, 514403029898887201]
+
+def get_emoji_by_name(guild: discord.Guild=None, emoji_name: str=None):
 	if emoji_name == None:
 		raise TypeError("string")
 		return

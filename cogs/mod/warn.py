@@ -1,9 +1,9 @@
 import discord
-import hasperm
 import datetime
 from discord.ext import commands
-from cogs.embedbuilder import *
-from jsonloader import *
+from helper.hasperm import *
+from helper.embedbuilder import *
+from helper.jsonloader import *
 
 class Warn(commands.Cog):
 	def __init__(self, bot, config):

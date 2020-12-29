@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from cogs.embedbuilder import *
+from helper.embedbuilder import *
 
 class DMWorker(commands.Cog):
 	def __init__(self, bot, config):
@@ -8,9 +8,9 @@ class DMWorker(commands.Cog):
 		self.rawconfig = config
 
 	@commands.command()
-	async def dm(self, ctx, target, *, msg):
-		channel = target.create_dm()
+	async def dm(self, ctx, target : discord.Member, *, msg):
+		channel = await target.create_dm()
 
-		embedbuilder = EmbedBuilder
+		embedbuilder = EmbedBuilder()
 
 		await channel.send(msg)

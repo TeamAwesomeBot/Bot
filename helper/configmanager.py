@@ -3,7 +3,7 @@ import inspect
 import atexit
 
 config = SafeConfigParser()
-config.read('config.ini')
+config.read('data/config.ini')
 
 def getconfig():
 	global config
@@ -16,7 +16,7 @@ def getconfig():
 
 def saveconfig():
 	global config
-	with open('config.ini', 'w') as configfile:    # save
+	with open('data/config.ini', 'w') as configfile:    # save
 		print('Saving changes before exiting the program...')
 		try:
 			config.write(configfile)

@@ -1,5 +1,8 @@
-Awesome bot
-=====
+<p align="center">
+    <img src = "icons/icon.png" alt="icon" width="175", height="175">
+</p>
+    <h2 align = "center">AwesomeBot</h2>
+
 ##### Made by ContiousAtom and JustM3Dev
 
 ## Idea

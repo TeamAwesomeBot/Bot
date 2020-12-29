@@ -1,13 +1,11 @@
 #!/usr/bin/python -u
 import discord
 import datetime
-import praw
-from cogs.embedbuilder import *
 
+from helper.embedbuilder import *
 from helper.cogmanager import *
 from helper.configmanager import *
-from webserver.app import *
-from jsonloader import *
+from helper.jsonloader import *
 
 config = getconfig()
 bot_config = config["BOT"]

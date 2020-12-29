@@ -3,10 +3,10 @@ import asyncio
 import random
 from discord.ext import commands
 
-from hasperm import has_admin
-from cogs.handystuff import *
-from cogs.embedbuilder import *
-from jsonloader import *
+from helper.hasperm import has_admin
+from helper.handystuff import *
+from helper.embedbuilder import *
+from helper.jsonloader import *
 
 class WelcomeMessage(commands.Cog):
 	def __init__(self, bot, config):

@@ -2,9 +2,9 @@ import discord
 import praw
 from discord.ext import commands
 
-from jsonloader import *
-from configmanager import *
-from cogs.embedbuilder import *
+from helper.jsonloader import *
+from helper.configmanager import *
+from helper.embedbuilder import *
 
 config = getconfig()
 reddit_config = config["REDDIT_API"]

@@ -1,9 +1,9 @@
 import json
 import atexit
 import discord
-from configmanager import config
+from helper.configmanager import config
 
-filenames = ['data.json', 'config.json']
+filenames = ['data/data.json', 'data/config.json']
 data = [{}, {}]
 
 def readfile():

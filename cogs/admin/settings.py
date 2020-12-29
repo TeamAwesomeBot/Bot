@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from jsonloader import *
+from helper.jsonloader import *
 
 class Settings(commands.Cog):
 	def __init__(self, bot, config):

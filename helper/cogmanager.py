@@ -1,34 +1,41 @@
 import discord
 from discord.ext import commands
 
-from cogs.moderation import *
-from cogs.administration import *
+# -------------- API --------------
+from cogs.api.reddit import *
 from cogs.api.covid import *
-from cogs.cprofile import *
-from cogs.welcome_message import *
-from cogs.settings import *
-from cogs.warn import *
-from cogs.dm_worker import *
-from cogs.info import *
-from cogs.api.redditapi import *
-
+# ------------- ADMIN -------------
+from cogs.admin.settings import *
+from cogs.admin.welcome_message import *
+# ---------- MODERATION -----------
+from cogs.mod.moderation import *
+from cogs.mod.warn import *
+# ------------- USER --------------
+from cogs.user.dm import *
+from cogs.user.info import *
+# ------------ OTHER --------------
+from cogs.other.cprofile import *
+# ------------- DEV ---------------
+from cogs.dev.dev import *
+from cogs.dev.error_handler import *
 
 class CogManager(commands.Cog):
 	def __init__(self, bot, config):
 		self.bot = bot
 		self.config = config
 		self.cogs = [
-			Moderation, 
-			Administration, 
-			CovidAPI, 
-			CProfile, 
-			WelcomeMessage, 
-			Settings, 
-			Warn , 
+			RedditAPI,
+			CovidAPI,
+			Settings,
+			WelcomeMessage,
+			Moderation,
+			Warn,
 			DMWorker,
 			Info,
-			RedditAPI
-			]
+			CProfile,
+			Dev,
+			ErrorHandler
+		]
 		self.load_systems()
 
 	def load_systems(self):
