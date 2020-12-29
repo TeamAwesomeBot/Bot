@@ -23,6 +23,11 @@ description =
 activity = a game
 color = discord.color.Green
 
+[REDDIT_BOT]
+client_id = [id]
+client_secret = [secret]
+client_user_agent = [user agent]
+
 [MODERATION]
 ```
 Then open your shell and type:
