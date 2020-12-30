@@ -13,7 +13,7 @@ class CProfile(commands.Cog):
 	@commands.command()
 	async def manualoverride(self, ctx):
 		if [414585685895282701, 514403029898887201] in ctx.message.author.id:
-			print(f"Mannually creating a json profile for {ctx.guild.name}")
+			print(f"Manually creating a json profile for {ctx.guild.name}")
 			await ctx.send(f"Mannually creating a json profile for {ctx.guild.name}")
 
 			jsondata = {"prefix" : "!", "color" : "0x17c4b9", "use_wm" : False, "use_lm" : False, "welcome_messages" : [],"leave_messages" : [], "welcome_channel" : "", "warns" : []}

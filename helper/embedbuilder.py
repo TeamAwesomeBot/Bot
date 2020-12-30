@@ -12,14 +12,13 @@ class EmbedBuilder():
 		self.create_embed(guild, title, description, color)
 
 		if set_footer: self.set_footer(author=author)
-		if set_author: self.set_author(author=author, url="", icon_url=author.avatar.url)
+		if set_author: self.set_author(author=author, url=f"https://discord.com/users/{author.id}", icon_url=author.avatar.url)
 	
-	def error_embed(self, error=None, color=None, set_footer=True):
+	def error_embed(self, error=None, color=None):
 		if color == None: color = 0xe74c3c
 		
 		self.create_embed(title="Error", description=str(error), color=color)
 		self.set_thumbnail(url="https://bit.ly/38Ms03p")
-		if set_footer: self.set_footer(author="Something went wrong...")
 
 	def create_embed(self, guild=None, title="", description="", color=None):
 		if not color: color = self.data[1][str(guild.id)]["color"]

@@ -1,6 +1,7 @@
 import discord
 import praw
-from discord.ext import commands
+import requests
+from discord.ext import commands, tasks
 
 from helper.jsonloader import *
 from helper.configmanager import *
@@ -33,7 +34,7 @@ class RedditAPI(commands.Cog):
 		while True:
 				index += 1
 				if index > 9:
-					eb.default_embed(guild=ctx.guild, title="Error", description="Couldn't find an image on this subreddit.")
+					eb.default_embed(guild=ctx.guild, author=ctx.message.author, title="Error", description="Couldn't find an image on this subreddit.")
 					await ctx.send(embed=eb.get_embed())
 					break
 
@@ -47,4 +48,20 @@ class RedditAPI(commands.Cog):
 
 	@reddit.command(aliases=["subfeed"], brief="Add a subreddit feed to the channel you are in", help="<subreddit>")
 	async def subredditfeed(self, ctx, subreddit):
-		pass
+		eb = EmbedBuilder()
+		eb.default_embed(guild=ctx.guild, author=ctx.message.author, title=f"Added new subreddit feed to {ctx.channel.mention}", description=f"All posts from r/{subreddit} will be sent in this channel.")
+
+		jsondata = {"subreddit" : str(subreddit), "channel" : str(ctx.channel.id)}
+		self.data[str(ctx.guild.id)]["reddit"].append()
+
+	@tasks.loop(minutes=10)
+	async def update_feed(self):
+		subreddit = reddit.subreddit(subreddit)
+		for submission in subreddit.hot(limit=1): # if not image: 
+			eb = EmbedBuilder()
+			eb.default_embed(guild=guild, author="", title=f"Added new subreddit feed to {ctx.channel.mention}", description=f"All posts from r/{subreddit} will be sent in this channel.")
+
+			print(submission.title)
+			print(submission.score)
+			print(submission.id)
+			print(submission.url)
