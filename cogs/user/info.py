@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands.cooldowns import BucketType
 from helper.embedbuilder import *
 
 class Info(commands.Cog):

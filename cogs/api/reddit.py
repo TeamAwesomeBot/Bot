@@ -58,6 +58,17 @@ class RedditAPI(commands.Cog):
 	async def update_feed(self):
 		subreddit = reddit.subreddit(subreddit)
 		for submission in subreddit.hot(limit=1): # if not image: 
+
+			eb.default_embed(guild=ctx.guild, author=ctx.message.author, title=post.title)
+
+			if post.is_self:
+				eb.default_embed.description = haha not funny lol xD lmao 
+
+			if "i.redd.it" in post.url:
+				eb.set_image(url=post.url)
+
+			await ctx.send(embed=eb.get_embed())
+
 			eb = EmbedBuilder()
 			eb.default_embed(guild=guild, author="", title=f"Added new subreddit feed to {ctx.channel.mention}", description=f"All posts from r/{subreddit} will be sent in this channel.")
 

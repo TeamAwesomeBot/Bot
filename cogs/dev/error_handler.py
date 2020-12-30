@@ -27,7 +27,9 @@ class ErrorHandler(commands.Cog):
 		if isinstance(error, commands.MissingRequiredArgument):
 			eb.default_embed(guild=ctx.guild, author=ctx.message.author, title="Missing argument", description=f"Use {self.data[1][str(ctx.guild.id)]['prefix']}{ctx.command} {ctx.command.help}")
 			await ctx.send(embed=eb.get_embed())
-			
+		elif isinstance(error, commands.CommandOnCooldown):
+			eb.default_embed(guild=ctx.guild, author=ctx.message.author, title="Cant do that now", description=str(error))
+			await ctx.send(embed=eb.get_embed())
 		else:
 			eb.error_embed(error="An error occurred. The devs have already been notified about this issue. _Try again later._")
 			await ctx.send(embed=eb.get_embed())

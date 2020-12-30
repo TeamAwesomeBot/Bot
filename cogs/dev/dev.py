@@ -43,6 +43,19 @@ class Dev(commands.Cog):
 	async def leave(self, ctx):
 		await ctx.guild.leave()
 
+	@commands.command(aliases=["exe", "exec"], brief="Evaluates the given code and executes it.")
+	async def execute(self, ctx, *, args):
+		try:
+			exec(self.convert_codeblock(args))
+			await ctx.send("Code ran successfully!")
+		except Exception as exc:
+			await ctx.send(f"Something in your code is not working properly: {exc}")
+
+	def convert_codeblock(self, cb):
+		ncb = cb.replace("```", "").replace("py", "", 1)
+		print(ncb)
+		return ncb
+
 	@commands.command(aliases=["off", "kill", "sts", "sleep"], brief="Closes the bot")
 	async def shutdown(self, ctx):
 		print(f"Bot shutdown by {ctx.message.author}.")
