@@ -14,6 +14,7 @@ We made this bot just because we wanted to know if it would work making a bot to
 ```bash
 git clone [repolink]
 cd awesomebot
+pip3 install -U discord.py
 ```
 Make a new file called `config.ini` and put the following in it:
 
