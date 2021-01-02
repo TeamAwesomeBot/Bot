@@ -2,7 +2,7 @@
     <img src = "icons/icon.png" alt="icon" width="175", height="175">
 </p>
     <h2 align = "center">AwesomeBot</h2>
-<h6 align="center">Made by ContiousAtom and JustM3Dev</h6>
+    <h6 align="center">Made by ContiousAtom and JustM3Dev</h6>
 
 ## Idea
 We made this bot just because we wanted to know if it would work making a bot together with someone else. First we wanted the bot to be themed(like for a game) but then we realized we could just make a bit of everything.
